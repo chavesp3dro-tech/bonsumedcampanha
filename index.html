@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BonsuMed — Cuidado essencial para casa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F6FAF8;
+    --panel: #FFFFFF;
+    --ink: #13241E;
+    --ink-soft: #4B5F58;
+    --teal: #0E6B5C;
+    --teal-deep: #0A4E43;
+    --teal-soft: #E4F0EC;
+    --line: #D7E4DF;
+    --amber: #C98A2C;
+    --amber-soft: #FBF1DF;
+    --radius: 4px;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{max-width:100%; display:block;}
+  .wrap{max-width: 1120px; margin: 0 auto; padding: 0 28px;}
+
+  /* Skip link / focus */
+  a:focus-visible, button:focus-visible{
+    outline: 3px solid var(--amber);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration: 0.001ms !important; transition-duration: 0.001ms !important;}
+  }
+
+  /* ===== TOP BAR ===== */
+  .topbar{
+    background: var(--teal-deep);
+    color: #EAF3F0;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.03em;
+  }
+  .topbar .wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 9px 28px;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+  }
+  .topbar span{opacity:0.92}
+  .topbar strong{color:#fff; font-weight:500;}
+
+  /* ===== HEADER ===== */
+  header.site{
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top:0; z-index: 40;
+  }
+  header.site .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 28px;
+  }
+  .logo{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--teal-deep);
+    letter-spacing: -0.01em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .cross{
+    width:18px; height:18px; position:relative; flex-shrink:0;
+  }
+  .logo .cross::before, .logo .cross::after{
+    content:''; position:absolute; background: var(--teal);
+  }
+  .logo .cross::before{ width:100%; height:5px; top:6.5px; left:0; border-radius:1px;}
+  .logo .cross::after{ height:100%; width:5px; left:6.5px; top:0; border-radius:1px;}
+  .logo small{
+    display:block; font-family: var(--font-mono); font-weight:400;
+    font-size:10.5px; color: var(--ink-soft); letter-spacing: 0.04em;
+    margin-top: 1px;
+  }
+  .header-cta{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--teal-deep);
+    text-decoration:none;
+    border: 1px solid var(--teal-deep);
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .header-cta:hover{ background: var(--teal-deep); color:#fff; }
+
+  /* ===== HERO ===== */
+  .hero{
+    padding: 64px 28px 56px;
+    background:
+      radial-gradient(circle at 88% -10%, var(--teal-soft) 0%, transparent 55%),
+      var(--bg);
+  }
+  .hero .wrap{ display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items:center;}
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--teal);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:''; width: 22px; height:1px; background: var(--teal);
+  }
+  h1{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  h1 em{ font-style: normal; color: var(--teal); }
+  .hero p.lead{
+    font-size: 16.5px;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin-bottom: 28px;
+  }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-primary{
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    padding: 14px 24px;
+    border-radius: var(--radius);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center; gap:8px;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .btn-primary:hover{ background: var(--teal-deep); transform: translateY(-1px); }
+  .btn-ghost{
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    background:#fff;
+    padding: 14px 24px;
+    border-radius: var(--radius);
+    text-decoration:none;
+    transition: border-color 0.15s ease;
+  }
+  .btn-ghost:hover{ border-color: var(--teal); }
+
+  /* Hero panel: prescription-style card */
+  .rx-card{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 26px 22px;
+    box-shadow: 0 18px 40px -22px rgba(14,107,92,0.35);
+    position: relative;
+  }
+  .rx-card::before{
+    content: 'GUIA DE CUIDADOS EM CASA';
+    position:absolute; top:-11px; left: 22px;
+    background: var(--amber-soft);
+    color: var(--amber);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    padding: 3px 10px;
+    border-radius: 3px;
+    border: 1px solid #EED8AC;
+  }
+  .rx-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding: 11px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  .rx-row:last-child{ border-bottom:none; }
+  .rx-row .label{ color: var(--ink-soft); }
+  .rx-row .val{ font-family: var(--font-mono); color: var(--ink); font-weight:500; }
+
+  /* ===== TRUST STRIP ===== */
+  .trust{
+    background: var(--teal-soft);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .trust .wrap{
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    padding: 20px 28px;
+    gap: 18px;
+  }
+  .trust-item{
+    display:flex; align-items:center; gap:11px;
+    font-size: 13.5px;
+    color: var(--teal-deep);
+  }
+  .trust-item .ic{
+    width:32px; height:32px; flex-shrink:0;
+    border-radius: 50%;
+    background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    border: 1px solid #C7DED8;
+  }
+  .trust-item strong{ display:block; font-weight:600; }
+  .trust-item span{ color: var(--ink-soft); font-size:12px; }
+
+  /* ===== PRODUCTS ===== */
+  .products{ padding: 64px 28px 40px; }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom: 34px;
+    flex-wrap: wrap; gap: 12px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 18px;
+  }
+  .section-head h2{
+    font-family: var(--font-display);
+    font-size: 27px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .section-head p{ color: var(--ink-soft); font-size: 14px; max-width: 42ch; }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .card{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    display:flex; flex-direction:column;
+    overflow:hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    opacity:0;
+    transform: translateY(14px);
+    animation: rise 0.55s ease forwards;
+  }
+  .card:hover{
+    box-shadow: 0 20px 36px -24px rgba(14,36,30,0.28);
+    transform: translateY(-3px);
+    border-color: #BFDAD2;
+  }
+  @keyframes rise{ to{ opacity:1; transform: translateY(0); } }
+
+  .card-media{
+    background: linear-gradient(160deg, var(--teal-soft), #F1F8F5);
+    padding: 30px 20px 22px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .card-media svg{ width: 76px; height:76px; }
+  .card-tag{
+    position:absolute; top:12px; left:12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing:0.04em;
+    background: #fff;
+    color: var(--teal-deep);
+    border: 1px solid #C7DED8;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  .card-body{ padding: 20px 20px 22px; display:flex; flex-direction:column; gap:12px; flex:1; }
+  .card-body h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16.5px;
+    line-height:1.3;
+    color: var(--ink);
+  }
+  .card-body p.desc{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height:1.55;
+    flex:1;
+  }
+  .card-foot{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+  }
+  .price{
+    font-family: var(--font-mono);
+  }
+  .price .cur{ font-size: 11.5px; color: var(--ink-soft); vertical-align: top; }
+  .price .amt{ font-size: 19px; font-weight:600; color: var(--teal-deep); }
+  .price .install{ display:block; font-size: 11px; color: var(--ink-soft); margin-top:2px; }
+
+  .btn-buy{
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 13.5px;
+    background: var(--teal);
+    color: #fff;
+    text-decoration:none;
+    padding: 11px 16px;
+    border-radius: var(--radius);
+    white-space:nowrap;
+    transition: background 0.15s ease;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .btn-buy:hover{ background: var(--teal-deep); }
+  .btn-buy svg{ width:14px; height:14px; }
+
+  /* ===== SECURITY BAND ===== */
+  .security{
+    margin: 56px 28px 64px;
+    max-width: 1120px;
+    margin-left:auto; margin-right:auto;
+    background: var(--teal-deep);
+    border-radius: var(--radius);
+    padding: 34px 36px;
+    color: #EAF3F0;
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 24px;
+    flex-wrap:wrap;
+  }
+  .security h3{
+    font-family: var(--font-display);
+    font-weight:600; font-size:19px; color:#fff; margin-bottom:6px;
+  }
+  .security p{ font-size:13.5px; color:#C9E0DA; max-width:52ch; }
+  .security a{
+    color: var(--teal-deep);
+    background:#fff;
+    text-decoration:none;
+    font-weight:600;
+    font-size: 13.5px;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    flex-shrink:0;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    background: #0E1F1A;
+    color: #9CB3AC;
+    padding: 42px 28px 28px;
+    font-size: 13px;
+  }
+  footer .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; align-items:flex-start;}
+  footer .logo{ color:#fff; margin-bottom: 8px;}
+  footer .logo .cross::before, footer .logo .cross::after{ background:#4FB6A2; }
+  footer .foot-note{ max-width: 40ch; line-height:1.6; color:#7E9691; }
+  footer .foot-links{ display:flex; gap: 30px; flex-wrap:wrap; }
+  footer .foot-links a{ color:#C4D7D1; text-decoration:none; }
+  footer .foot-links a:hover{ text-decoration:underline; }
+  .foot-bottom{
+    max-width: 1120px; margin: 30px auto 0; padding-top: 20px;
+    border-top: 1px solid #1E332B; font-size: 11.5px; color:#5E756F;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px){
+    .hero .wrap{ grid-template-columns: 1fr; }
+    .trust .wrap{ grid-template-columns: repeat(2,1fr); }
+    .grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 600px){
+    .grid{ grid-template-columns: 1fr; }
+    .trust .wrap{ grid-template-columns: 1fr; }
+    .topbar .wrap{ font-size: 11px; }
+    .security{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span><strong>Frete</strong> para todo o Brasil</span>
+    <span><strong>Pagamento</strong> processado com segurança</span>
+    <span>Dúvidas: <strong>(21) 98211-0308</strong></span>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <div class="logo">
+      <span class="cross" aria-hidden="true"></span>
+      <div>
+        BonsuMed
+        <small>equipamentos para cuidado em casa</small>
+      </div>
+    </div>
+    <a class="header-cta" href="#produtos">Ver produtos</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Linha de cuidado domiciliar</div>
+      <h1>Equipamentos médicos essenciais, prontos para <em>uso em casa</em>.</h1>
+      <p class="lead">Selecionamos itens de uso clínico comum — respiração, pressão arterial, curativos e sono — para quem cuida de alguém, ou de si mesmo, fora do hospital.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#produtos">
+          Ver os 5 produtos
+        </a>
+        <a class="btn-ghost" href="#seguranca">Como funciona a compra</a>
+      </div>
+    </div>
+    <div class="rx-card">
+      <div class="rx-row"><span class="label">Itens no catálogo</span><span class="val">05</span></div>
+      <div class="rx-row"><span class="label">Categoria</span><span class="val">Uso domiciliar</span></div>
+      <div class="rx-row"><span class="label">Faixa de preço</span><span class="val">R$ 189,99 – 599,99</span></div>
+      <div class="rx-row"><span class="label">Checkout</span><span class="val">Ambiente seguro</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-item">
+      <div class="ic">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E6B5C" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <div><strong>Compra protegida</strong><span>Checkout dedicado por produto</span></div>
+    </div>
+    <div class="trust-item">
+      <div class="ic">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E6B5C" stroke-width="2"><rect x="1" y="6" width="18" height="12" rx="2"/><path d="M1 10h18"/></svg>
+      </div>
+      <div><strong>Várias formas de pagamento</strong><span>Cartão, Pix e boleto</span></div>
+    </div>
+    <div class="trust-item">
+      <div class="ic">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E6B5C" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div><strong>Envio rastreado</strong><span>Para todo o Brasil</span></div>
+    </div>
+    <div class="trust-item">
+      <div class="ic">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E6B5C" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      </div>
+      <div><strong>Suporte por WhatsApp</strong><span>Dúvidas antes ou depois da compra</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="produtos">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Catálogo</h2>
+        <p>Cada produto abre o checkout específico dele — pagamento processado fora do site, em ambiente dedicado.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <!-- 1. Kit Cirurgia Pequena -->
+      <article class="card" style="animation-delay:0.02s">
+        <div class="card-media">
+          <span class="card-tag">KIT</span>
+          <svg viewBox="0 0 64 64" fill="none" stroke="#0E6B5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="16" width="44" height="34" rx="2"/>
+            <path d="M10 26h44"/>
+            <path d="M22 16v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/>
+            <path d="M20 36l6 6M26 36l-6 6"/>
+            <path d="M38 34v10M33 39h10"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Kit Cirurgia Pequena — 10 peças</h3>
+          <p class="desc">Conjunto de instrumentos básicos para pequenos procedimentos e curativos em ambiente domiciliar ou clínico, com 10 itens essenciais.</p>
+          <div class="card-foot">
+            <div class="price">
+              <span class="cur">R$</span> <span class="amt">489,90</span>
+              <span class="install">à vista ou parcelado no checkout</span>
+            </div>
+            <a class="btn-buy" href="https://pay.finaliza.shop/pl/9866d3d9e2" target="_blank" rel="noopener">
+              Finalizar Compra
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Kit Durma Bem -->
+      <article class="card" style="animation-delay:0.08s">
+        <div class="card-media">
+          <span class="card-tag">SONO</span>
+          <svg viewBox="0 0 64 64" fill="none" stroke="#0E6B5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M38 12a18 18 0 1 0 14 29 14 14 0 0 1-14-29z"/>
+            <path d="M46 14l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Kit Durma Bem</h3>
+          <p class="desc">Conjunto pensado para melhorar a rotina de sono em casa, reunindo os itens de acompanhamento e conforto que compõem o kit.</p>
+          <div class="card-foot">
+            <div class="price">
+              <span class="cur">R$</span> <span class="amt">599,99</span>
+              <span class="install">à vista ou parcelado no checkout</span>
+            </div>
+            <a class="btn-buy" href="https://pay.finaliza.shop/pl/0762af9a8b" target="_blank" rel="noopener">
+              Finalizar Compra
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Nebulizador rede vibratória -->
+      <article class="card" style="animation-delay:0.14s">
+        <div class="card-media">
+          <span class="card-tag">G-TECH</span>
+          <svg viewBox="0 0 64 64" fill="none" stroke="#0E6B5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="26" width="20" height="24" rx="3"/>
+            <path d="M24 26v-6a4 4 0 0 1 4-4h0"/>
+            <path d="M40 20c4 2 6 6 6 10s-2 8-6 10"/>
+            <path d="M46 16c6 3 9 9 9 14s-3 11-9 14"/>
+            <circle cx="24" cy="38" r="4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Nebulizador e Inalador com Rede Vibratória G-Tech</h3>
+          <p class="desc">Aparelho portátil de tecnologia por malha vibratória para inaloterapia, indicado para tratamentos respiratórios em adultos e crianças.</p>
+          <div class="card-foot">
+            <div class="price">
+              <span class="cur">R$</span> <span class="amt">359,99</span>
+              <span class="install">à vista ou parcelado no checkout</span>
+            </div>
+            <a class="btn-buy" href="https://pay.finaliza.shop/pl/a247c05b24" target="_blank" rel="noopener">
+              Finalizar Compra
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. Nebulizador rede facial -->
+      <article class="card" style="animation-delay:0.20s">
+        <div class="card-media">
+          <span class="card-tag">G-TECH</span>
+          <svg viewBox="0 0 64 64" fill="none" stroke="#0E6B5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="24" width="18" height="20" rx="3"/>
+            <path d="M30 30h8a4 4 0 0 1 4 4v0a4 4 0 0 1-4 4h-8"/>
+            <path d="M46 26c4 2 6 5 6 8s-2 6-6 8"/>
+            <circle cx="21" cy="34" r="3.4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Nebulizador com Rede Facial G-Tech</h3>
+          <p class="desc">Versão compacta com máscara facial, indicada para inaloterapia de uso frequente em casa, com operação silenciosa.</p>
+          <div class="card-foot">
+            <div class="price">
+              <span class="cur">R$</span> <span class="amt">229,99</span>
+              <span class="install">à vista ou parcelado no checkout</span>
+            </div>
+            <a class="btn-buy" href="https://pay.finaliza.shop/pl/9661bb2a1d" target="_blank" rel="noopener">
+              Finalizar Compra
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Aparelho de pressão -->
+      <article class="card" style="animation-delay:0.26s">
+        <div class="card-media">
+          <span class="card-tag">G-TECH</span>
+          <svg viewBox="0 0 64 64" fill="none" stroke="#0E6B5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="26" cy="34" r="14"/>
+            <path d="M26 34l7-8"/>
+            <circle cx="26" cy="34" r="1.6" fill="#0E6B5C" stroke="none"/>
+            <path d="M40 22h10a2 2 0 0 1 2 2v20a2 2 0 0 1-2 2H40"/>
+            <path d="M46 28v12"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Aparelho de Pressão Digital de Braço G-Tech</h3>
+          <p class="desc">Medidor digital de pressão arterial para braço, com leitura automática, indicado para acompanhamento regular em casa.</p>
+          <div class="card-foot">
+            <div class="price">
+              <span class="cur">R$</span> <span class="amt">189,99</span>
+              <span class="install">à vista ou parcelado no checkout</span>
+            </div>
+            <a class="btn-buy" href="https://pay.finaliza.shop/pl/df148c1604" target="_blank" rel="noopener">
+              Finalizar Compra
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="security" id="seguranca">
+  <div>
+    <h3>Como funciona o pagamento e o acompanhamento</h3>
+    <p>Ao clicar em "Finalizar Compra", você é levado ao checkout específico daquele produto, onde o pagamento é processado. O BonsuMed não armazena dados de cartão. <strong style="color:#fff;">Depois de pagar, envie uma mensagem pelo WhatsApp com o nome do produto para acompanhar seu pedido</strong> — o envio não é automático.</p>
+  </div>
+  <a href="https://wa.me/5521982110308?text=Ol%C3%A1%2C%20acabei%20de%20finalizar%20uma%20compra%20na%20BonsuMed%20e%20quero%20acompanhar%20meu%20pedido." target="_blank" rel="noopener">Acompanhar meu pedido</a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="logo">
+        <span class="cross" aria-hidden="true"></span>
+        BonsuMed
+      </div>
+      <p class="foot-note">Equipamentos e suprimentos médicos para cuidado domiciliar. Compra processada em checkout externo dedicado por produto.</p>
+    </div>
+    <div class="foot-links">
+      <a href="#produtos">Produtos</a>
+      <a href="#seguranca">Pagamento</a>
+      <a href="https://wa.me/5521982110308" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+  <div class="foot-bottom wrap">
+    BonsuMed — equipamentos para cuidado em casa. Este site não substitui orientação médica profissional.
+  </div>
+</footer>
+
+</body>
+</html>
